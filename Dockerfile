@@ -7,7 +7,8 @@ MAINTAINER Attila Sumi sumia01@gmail.com
 # Apache2 config: /etc/apache2/
 
 #RUN apt-get update && \
-#      DEBIAN_FRONTEND=noninteractive apt-get -y install \
+      DEBIAN_FRONTEND=noninteractive apt-get -y install \
+        wget
 #      apache2 \
 #      libapache2-mod-php5 \
 #      php5 && \
@@ -19,7 +20,9 @@ RUN a2dismod mpm_event && \
     a2enmod mpm_prefork \
             rewrite && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
-    ln -sf /dev/stderr /var/log/apache2/error.log
+    ln -sf /dev/stderr /var/log/apache2/error.log \
+    cd /usr/local/bin \
+    wget https://getcomposer.org/composer.phar
 
 WORKDIR /var/www/html
 
