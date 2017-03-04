@@ -8,11 +8,11 @@ MAINTAINER Attila Sumi sumia01@gmail.com
 
 RUN apt-get update && \
       DEBIAN_FRONTEND=noninteractive apt-get -y install \
-        wget
+        wget && \
 #      apache2 \
 #      libapache2-mod-php5 \
 #      php5 && \
-#    apt-get clean && rm -r /var/lib/apt/lists/*
+       apt-get clean && rm -r /var/lib/apt/lists/* \
 
 # Apache + PHP requires preforking Apache for best results & enable Apache SSL
 # forward request and error logs to docker log collector
@@ -20,7 +20,7 @@ RUN a2dismod mpm_event && \
     a2enmod mpm_prefork \
             rewrite && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
-    ln -sf /dev/stderr /var/log/apache2/error.log \
+    ln -sf /dev/stderr /var/log/apache2/error.log && \
     cd /var && \
     wget https://getcomposer.org/composer.phar \
 
