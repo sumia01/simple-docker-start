@@ -6,7 +6,7 @@ MAINTAINER Attila Sumi sumia01@gmail.com
 # webroot: /var/www/html/
 # Apache2 config: /etc/apache2/
 
-#RUN apt-get update && \
+RUN apt-get update && \
       DEBIAN_FRONTEND=noninteractive apt-get -y install \
         wget
 #      apache2 \
