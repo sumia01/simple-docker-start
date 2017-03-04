@@ -17,15 +17,12 @@ MAINTAINER Attila Sumi sumia01@gmail.com
 # forward request and error logs to docker log collector
 RUN a2dismod mpm_event && \
     a2enmod mpm_prefork \
-            ssl \
             rewrite && \
-    a2ensite default-ssl && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log
 
 WORKDIR /var/www/html
 
 EXPOSE 80
-EXPOSE 443
 
 CMD ["apache2-foreground"]
