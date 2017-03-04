@@ -21,8 +21,8 @@ RUN a2dismod mpm_event && \
             rewrite && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log \
-    cd /usr/local/bin \
-    wget https://getcomposer.org/composer.phar
+    cd /var && \
+    wget https://getcomposer.org/composer.phar \
 
 WORKDIR /var/www/html
 
