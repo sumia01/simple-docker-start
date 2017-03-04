@@ -7,22 +7,17 @@ MAINTAINER Attila Sumi sumia01@gmail.com
 # Apache2 config: /etc/apache2/
 
 RUN apt-get update && \
-      apt-get -y install \
-        wget && \
-#      apache2 \
-#      libapache2-mod-php5 \
-#      php5 && \
-#       apt-get clean && rm -r /var/lib/apt/lists/* \
+    apt-get -y install curl && \
 
-# Apache + PHP requires preforking Apache for best results & enable Apache SSL
-# forward request and error logs to docker log collector
-RUN a2dismod mpm_event && \
+    a2dismod mpm_event && \
     a2enmod mpm_prefork \
             rewrite && \
+
     ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log && \
-    cd /var && \
-    wget https://getcomposer.org/composer.phar \
+    cd /var  && \
+    curl https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer  && \
+    apt-get clean && rm -r /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
 
