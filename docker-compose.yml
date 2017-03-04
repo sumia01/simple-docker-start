@@ -1,0 +1,40 @@
+version: '2'
+services:
+    web:
+        build: github.com/sumia01/simple-docker-start
+        command: []
+        ports:
+            - 80
+        expose:
+            - 80
+        volumes:
+            - .:/var/www/html
+        links:
+            - db
+        environment:
+            DB_DSN: mysql:host=db;dbname=database
+            TEST_DB_DSN: mysql:host=db;dbname=testdb
+            DB_USERNAME: php
+            DB_PASSWORD: phppass
+            DB_ROOT_PASSWORD: password
+            DOCKER_ABORT_ON_FAILURE:
+    db:
+        image: mariadb:10
+        command: [--character-set-server=utf8, --collation-server=utf8_unicode_ci]
+        ports:
+            - 3306
+        environment:
+            MYSQL_DATABASE: database
+            MYSQL_USER: php
+            MYSQL_PASSWORD: phppass
+            MYSQL_ROOT_PASSWORD: password
+        volumes:
+            - dbdata:/var/lib/mysql
+    pma:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 80
+        links:
+            - db
+volumes:
+    dbdata: {}
