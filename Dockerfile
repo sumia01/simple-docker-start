@@ -7,12 +7,12 @@ MAINTAINER Attila Sumi sumia01@gmail.com
 # Apache2 config: /etc/apache2/
 
 RUN apt-get update && \
-      DEBIAN_FRONTEND=noninteractive apt-get -y install \
+      apt-get -y install \
         wget && \
 #      apache2 \
 #      libapache2-mod-php5 \
 #      php5 && \
-       apt-get clean && rm -r /var/lib/apt/lists/* \
+#       apt-get clean && rm -r /var/lib/apt/lists/* \
 
 # Apache + PHP requires preforking Apache for best results & enable Apache SSL
 # forward request and error logs to docker log collector
