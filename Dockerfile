@@ -2,12 +2,12 @@ FROM php:7.0.16-apache
 MAINTAINER Attila Sumi sumia01@gmail.com
 
 RUN apt-get update && \
-    apt-get -y install curl git bzip2 openssh-client rsync --no-install-recommends && \
+    apt-get -y install curl git bzip2 openssh-client rsync --no-install-recommends zip unzip && \
 
     a2dismod mpm_event && \
     a2enmod mpm_prefork \
-            rewrite && \
-
+            rewrite \
+            session && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log && \
     cd /var  && \
@@ -45,6 +45,9 @@ RUN php -r "readfile('https://getcomposer.org/installer');" > composer-setup.php
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
+RUN mkdir /home/www-data \
+    && chown -R www-data:www-data /home/www-data \
+    && chown -R www-data:www-data /var/www
 WORKDIR /var/www/html
 
 EXPOSE 80
