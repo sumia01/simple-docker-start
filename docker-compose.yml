@@ -2,7 +2,7 @@ version: '2'
 services:
     web:
         build: github.com/sumia01/simple-docker-start
-        #build: .
+        # build: .
         command: []
         ports:
             - 80

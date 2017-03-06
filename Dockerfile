@@ -7,6 +7,19 @@ RUN apt-get update && \
     a2dismod mpm_event && \
     a2enmod mpm_prefork \
             rewrite \
+            headers \
+            deflate \
+            env \
+            expires \
+            filter \
+            ldap \
+            vhost_alias \
+            negotiation \
+            mime \
+            authnz_ldap \
+            authz_core \
+            authz_host \
+            authz_user \
             session && \
     ln -sf /dev/stdout /var/log/apache2/access.log && \
     ln -sf /dev/stderr /var/log/apache2/error.log && \
