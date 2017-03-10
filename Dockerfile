@@ -2,8 +2,20 @@ FROM php:7.0.16-apache
 MAINTAINER Attila Sumi sumia01@gmail.com
 
 RUN apt-get update && \
-    apt-get -y install curl git bzip2 openssh-client rsync --no-install-recommends zip unzip && \
-
+    apt-get -y install \
+        libcurl4-gnutls-dev \
+        git \
+        bzip2 \
+        openssh-client \
+        rsync --no-install-recommends \
+        zip \
+        unzip \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng12-dev \
+        sqlite \
+        && \
     a2dismod mpm_event && \
     a2enmod mpm_prefork \
             rewrite \
@@ -25,6 +37,15 @@ RUN apt-get update && \
     ln -sf /dev/stderr /var/log/apache2/error.log && \
     cd /var  && \
     apt-get clean && rm -r /var/lib/apt/lists/*;
+RUN docker-php-ext-install \
+        pdo \
+        pdo_mysql \
+        session \
+        curl \
+        gd \
+        mbstring \
+        mcrypt \
+        mysqli;
 
 # install node, script from official node docker image, modified to use gz
 # gpg keys listed at https://github.com/nodejs/node
